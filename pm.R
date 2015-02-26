@@ -1,6 +1,6 @@
 library(rworldmap)
 library(XML)
-StartDate = "2015-01-01"
+StartDate = "2014-01-01"
 EndDate = as.character(format(Sys.time(),"%Y-%m-%d"))
 
 if(!file.exists("pm.RData"))
@@ -117,7 +117,7 @@ pmNetwork = function(cityInclude,cities,city1,city2,R2,cutoff=0.5,StartDate,EndD
   data$R2 = abs(data$R2)
   lwd = (data$R2 - min(data$R2))/(max(data$R2)-min(data$R2)) * 4 + 4
   E(g)$width = lwd
-  E(g)$color = heat.colors(10)[10-floor(data$R2*10)]
+  E(g)$color = healitt.colors(10)[10-floor(data$R2*10)]
   E(g)$label = round(data$R2,digits = 2)
   E(g)$label.color = "slategrey"
   E(g)$label.size = 0.8
@@ -132,7 +132,7 @@ pmNetwork = function(cityInclude,cities,city1,city2,R2,cutoff=0.5,StartDate,EndD
         sub=paste("收据收集时间段",StartDate,"至",EndDate," @conda",sep=""))
   g
 }
-jpeg("pm2.5Network.2015.%d.jpeg",width = 1000,height = 1000,quality = 100)
+jpeg("pm2.5Network.%d.jpeg",width = 1000,height = 1000,quay = 100)
 g = pmNetwork(cityInclude,cities,city1,city2,R2,cutoff=0,StartDate,EndDate)
 g = pmNetwork(cityInclude,cities,city1,city2,R2,cutoff=0.1,StartDate,EndDate)
 g = pmNetwork(cityInclude,cities,city1,city2,R2,cutoff=0.2,StartDate,EndDate)
