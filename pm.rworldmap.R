@@ -2,11 +2,12 @@ library(rworldmap)
 library(XML)
 
 ###Set date like yyyy-mm-dd
-date = "2015-02-02"
+StartDate = format(Sys.time(),"%Y-%m-%d")
+EndDate = format(Sys.time(),"%Y-%m-%d")
 
 Start = Sys.time()
 cat("Obtaining data ...\n")
-website = paste("http://datacenter.mep.gov.cn/report/air_daily/air_dairy.jsp?city=&startdate=",date,"&enddate=",date,"&page=",1,sep = "")
+website = paste("http://datacenter.mep.gov.cn/report/air_daily/air_dairy.jsp?city=&startdate=",StartDate,"&enddate=",EndDate,"&page=",1,sep = "")
 pmweb = readLines(website,encoding="UTF-8")
 pmweb = paste(pmweb,collapse = "")
 pmhtml = htmlParse(pmweb,encoding="UTF-8")
@@ -23,7 +24,7 @@ if(totalPages>=2)
   for(page in 2:totalPages )
   {
     cat("Obtaining data for page",page,"...\n")
-    website = paste("http://datacenter.mep.gov.cn/report/air_daily/air_dairy.jsp?city=&startdate=",date,"&enddate=",date,"&page=",page,sep = "")
+    website = paste("http://datacenter.mep.gov.cn/report/air_daily/air_dairy.jsp?city=&startdate=",StartDate,"&enddate=",EndDate,"&page=",page,sep = "")
     pmweb = readLines(website,encoding="UTF-8")
     pmweb = paste(pmweb,collapse = "")
     pmhtml = htmlParse(pmweb,encoding="UTF-8")
@@ -36,6 +37,7 @@ if(totalPages>=2)
     pm = rbind(pm,pm.new)
   }
 }
+
 if(version$os=="mingw32")
 {
   ChinaLocation = read.csv(file = "China.Cities.Location.Win.csv")
@@ -70,3 +72,5 @@ title(sub=paste("数据来源：","中华人民共和国环境保护部数据中
 Stop = Sys.time()
 Cost = Stop - Start
 cat(paste("\n\n\nIt cost",Cost,"minutes.\n"))
+
+
