@@ -2,8 +2,8 @@ library(rworldmap)
 library(XML)
 
 ###Set date like yyyy-mm-dd
-StartDate = format(Sys.time(),"%Y-%m-%d")
-EndDate = format(Sys.time(),"%Y-%m-%d")
+StartDate = format(Sys.time() - 86400 ,"%Y-%m-%d")
+EndDate = format(Sys.time() - 86400 ,"%Y-%m-%d")
 
 Start = Sys.time()
 cat("Obtaining data ...\n")
@@ -67,7 +67,7 @@ mapBubbles(dF = pmCity,
            nameZColour = "color",
            addColourLegend = F)
 
-title(main=paste(date,"全国",nrow(pmCity),"个主要城市PM2.5分布情况",sep=""))
+title(main=paste(StartDate,"-",EndDate,"全国",nrow(pmCity),"个主要城市PM2.5分布情况",sep=""))
 title(sub=paste("数据来源：","中华人民共和国环境保护部数据中心 drawed by R author:Conda",sep=""),col.sub="grey")
 Stop = Sys.time()
 Cost = Stop - Start
